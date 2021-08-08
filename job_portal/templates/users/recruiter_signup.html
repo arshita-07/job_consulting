@@ -1,0 +1,92 @@
+
+{% extends 'job/base.html' %}
+{% block body_block %}
+<style>
+    body
+    {
+        background-image: url('/static/job/bg6.PNG');
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    }
+    #btn{
+        width: 20%;
+        background-color:rgba(0,0,0,0.5);
+        border: white solid 1px;
+        margin-left:40% ;
+    }
+    #btn:hover
+    {
+        background-color:rgba(0,0,0,0.7);
+    }
+</style>
+{% if uerror %}
+<div style="margin-top: 0.5%;">{{uerror}}
+</div>
+{% endif %}
+{% if rerror %}
+<div style="margin-top: 0.5%;">{{rerror}}
+</div>
+{% endif %}
+
+<div style="width: 80%; margin: auto;margin-bottom: 5%; border: 1px solid #333; border-radius: 0.5em; padding: 3%; margin-top: 2%;">
+    <h2 style="text-align: center;">Recruiter Signup</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <table style="width: 80%; margin: auto;">
+        <thead>
+            <th style="width: 20%;"></th>
+            <th style="width:30%"></th>
+            <th style="width: 20%;"></th>
+            <th style="width:30%"></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{u_form.first_name.label}}:</td>
+                <td>{{u_form.first_name}}</td>
+                <td>{{u_form.last_name.label}}:</td>
+                <td>{{u_form.last_name}}</td>
+            </tr>
+            <tr>
+                <td>{{u_form.username.label}}:</td>
+                <td>{{u_form.username}}</td>
+                <td colspan="2">{{u_form.username.help_text}}</td>
+            </tr>
+            <tr>
+                <td>{{u_form.email.label}}:</td>
+                <td>{{u_form.email}}</td>
+            </tr>
+            <tr>
+                <td>{{u_form.password1.label}}:</td>
+                <td>{{u_form.password1}}</td>
+                <td colspan="2">{{u_form.password1.help_text}}</td>
+            </tr>
+            <tr>
+                <td>{{u_form.password2.label}}:</td>
+                <td>{{u_form.password2}}</td>
+                <td colspan="2">{{u_form.password2.help_text}}</td>
+            </tr>
+            <tr>
+                <td>{{r_form.mobile.label}}:</td>
+                <td>{{r_form.mobile}}</td>
+                <td>{{r_form.company_name.label}}</td>
+                <td>{{r_form.company_name}}</td>
+            </tr>
+            <tr>
+                <td>{{r_form.image.label}}</td>
+                <td>{{r_form.image}}</td>
+                <td>{{r_form.gender.label}}</td>
+                <td>{{r_form.gender}}</td>
+            </tr>
+        </tbody>
+    </table>
+<br>
+<button class="btn btn-info" type="submit" id="btn">Sign In</button>
+</form>
+<br> Already have an account? <a href="{% url 'recruiter_login' %}">Login</a>
+</div>
+{% endblock %}
+

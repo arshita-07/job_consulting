@@ -1,0 +1,42 @@
+{% extends "job/base.html" %}
+{% block body_block %}
+<style> 
+        body
+        {
+            background-color: #ccb3ff;
+        }
+        
+</style>
+<div class="containter" style="padding: 5%;width: 80%; margin: auto;">
+        <h1 style="text-align: center;">Applications for - {{job.title}}</h1>
+        {% if applications %}
+        <table style="width: 80%; margin-left: 6%; padding: 2%;">
+                <thead style="text-align: center;">
+                        <th style="width: 10%; text-align: center;">First Name</th>
+                        <th style="width: 10%;text-align: center;">Last Name </th>
+                        <th style="width: 30%;text-align: center;">uploaded resume</th>
+                        <th style="width: 20%; text-align: center;">Phone number</th>
+                        <th style="width: 30%; text-align: center;">Email Id</th>
+                
+                </thead>
+                <tbody style="text-align: center;">
+                        {% for application in applications %}
+                        <tr>
+                                <td>{{application.applicant.user.first_name}}</td>
+                                <td>{{application.applicant.user.last_name}}</td>
+                                <td><a href="{{application.cv.url}}" download> Download File</a></td>
+                                <td>
+                                        {{application.applicant.mobile}}
+                                </td>
+                                <td>{{application.applicant.user.email}}</td>
+                                
+                        
+                        </tr>
+                        {% endfor %}
+                </tbody>
+        </table>
+        {% else %}
+        <h2>There are no applications for this job yet!</h2>
+        {% endif %}
+</div>
+{% endblock %}

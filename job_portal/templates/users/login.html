@@ -1,0 +1,37 @@
+{% extends 'job/base.html' %}
+{% block body_block %}
+<style>
+    body
+    {
+        background-image: url('/static/job/xx.JPG');
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    }
+    #btn{
+        width: 80%;
+        background-color:rgba(0,0,0,0.5);
+        border: white solid 1px;
+    }
+    #btn:hover
+    {
+        background-color:rgba(0,0,0,0.7);
+    }
+</style>
+
+<div style="margin: auto; border:#333 1px solid; border-radius: 0.5em; padding:5%;width: 50%;margin-top: 8%;">
+<h1 style="text-align: center;">User Login</h1>
+<div style="width: 40%;margin: auto;">
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-info" type="submit" id="btn" style="width: 80%;">Login</button>
+    </form></div>
+    <br>  Don't have an account yet? <a href="{% url 'user_signup' %}">Sign Up</a>
+  <br>  Forgot Password? <a href="{% url 'password_reset' %}">Reset Here</a>
+</div>
+
+{%  endblock %}

@@ -1,0 +1,50 @@
+{% extends "job/base.html" %}
+{% block body_block %}
+<style>
+        body
+        {
+                background-image: url('/static/job/b.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 20px;
+        }
+        #btn{
+        width: 20%;
+        background-color:rgba(0,0,0,0.5);
+        border: white solid 1px;
+    }
+    #btn:hover
+    {
+        background-color:rgba(0,0,0,0.7);
+    }
+</style>
+
+        <h1 style="text-align: center; margin-top: 5%;">{{job.title}}</h1>
+        <div style="margin-left:auto ; margin-right:auto ; width: 70%;">
+        <h2>{{job.recruiter.company_name}}</h2>
+        <br>
+        Apply by: {{job.apply_deadline}}
+        <br><br>
+        Keywords: {{job.keywords}}
+        <br><br>
+        Job Description: <p style="text-align: justify;">{{job.job_description}}</p>
+        <br>
+        Required Skills: <p style="text-align: justify;">{{job.required_skills}}</p>
+                
+{% if request.user.is_authenticated %}
+{% if request.user.is_recruiter%}
+{% if user.recruiter_user == job.recruiter %}
+<a href="{% url 'update' job.id %}" id="btn" class="btn btn-info" >Update</a>
+<a href="{% url 'delete' job.id %}" id="btn" class="btn btn-info">Delete</a>
+<a href="{% url 'applicationforjob' job.id %}" id="btn" class="btn btn-info">View applications</a>
+{% endif %}
+{% endif %}
+{% if request.user.is_working%}
+<a href="{% url 'apply' job.id %}">Apply</a>
+{% endif %}
+{% endif %}
+</div>
+
+{% endblock %}

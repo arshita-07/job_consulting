@@ -1,0 +1,38 @@
+{% extends "job/base.html" %}
+{% block body_block %}
+<style>
+  body{
+    background-color: #f2e5d9;
+  }
+  th,tr,td{
+    text-align: center;
+  }
+</style>
+<div style="padding: 5%; width: 80%; margin: auto;">
+        <h1 style="text-align: center;">Recruiter Requests</h1>
+        {% if recruiters %}
+        <table>
+          <thead>
+            <th style="width: 30%;">
+              Username
+            </th>
+            <th style="width: 25%;">Company</th>
+            <th style="width: 30%;">Status</th>
+            <th style="width:15%;"></th>
+          </thead>
+          <tbody>
+            {% for r in recruiters %}
+            <tr>
+              <td>{{r.user.username}}</td>
+              <td>{{r.company_name}}</td>
+              <td>{{r.verified}}</td>
+              <td><a href="{% url 'change_status' r.id %}" class="btn btn-warning">Change Status</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <h2>There are no Recruiter Requests yet!</h2>
+        {% endif %}
+      </div>
+{% endblock %}

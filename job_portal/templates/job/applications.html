@@ -1,0 +1,42 @@
+{% extends "job/base.html" %}
+{% block body_block %}
+<style> 
+        body
+        {
+            background-color: #ccb3ff;
+        }
+        
+</style>
+        <h1 style="text-align: center;">My Applications</h1>
+        {% if applications %}
+        <table style="width: 80%; margin-left: 6%; padding: 2%;">
+                <thead style="text-align: center;">
+                        <th style="width: 20%; text-align: center;">Job title</th>
+                        <th style="width: 30%;text-align: center;">Company </th>
+                        <th style="width: 30%;text-align: center;">uploaded resume</th>
+                        <th style="width: 20%; text-align: center;">Appplication Status</th>
+                
+                </thead>
+                <tbody style="text-align: center;">
+                        {% for application in applications %}
+                        <tr>
+                                <td>{{application.job.title}}</td>
+                                <td>{{application.job.recruiter.company_name}}</td>
+                                <td><a href="{{application.cv.url}}" download> Download File</a></td>
+                                <td>
+                                        {% if application.job.status %}
+                                        This position has been filled already
+                                        {% else %}
+                                        Your application has been submitted successfully
+                                        {% endif %}
+                                </td>
+                                
+                        
+                        </tr>
+                        {% endfor %}
+                </tbody>
+        </table>
+        {% else %}
+        <h2>You haven't applied for anything yet</h2>
+        {% endif %}
+{% endblock %}

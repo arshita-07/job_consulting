@@ -1,0 +1,117 @@
+{% extends "job/base.html" %}
+{% block body_block %}
+<style> 
+        body
+        {
+                background-color: #ffe6f2;
+        }
+</style>
+<script>
+        var app = angular
+        .module("myModule", [])
+        .controller("myController", function ($scope) {
+                var job_var=[
+            {% for job in jobs%}
+            {% if job.is_past_due %}
+                {% else %}
+                {% if job.status %}
+                {% else %}
+	{title: "{{job.title}}",company:"{{job.recruiter.company_name}}",keywords:"{{job.keywords}}",deadline:new Date("{{job.apply_deadline}}").toDateString(),url:"{% url 'detail' job.id %}",location:"{{job.location}}",work_from_home:"{{job.work_from_home}}"},
+	{% endif %}
+        {% endif %}
+                {% endfor %}
+];
+	$scope.job_var=job_var;
+        var job_var_wfh=[
+            {% for job in jobs%}
+            {% if job.is_past_due %}
+                {% else %}
+                {% if job.status %}
+                {% else %}
+                {% if job.work_from_home %}
+	{title: "{{job.title}}",company:"{{job.recruiter.company_name}}",keywords:"{{job.keywords}}",deadline:new Date("{{job.apply_deadline}}").toDateString(),url:"{% url 'detail' job.id %}",location:"{{job.location}}",work_from_home:"{{job.work_from_home}}"},
+	{% endif %}
+        {% endif %}
+        {% endif %}
+                {% endfor %}
+];
+	$scope.job_var_wfh=job_var_wfh;
+	$scope.sort_by="title";
+        $('#work_from_home').click(function ($scope) {
+    if ($(this).is(':checked')) {
+            $("#one").hide();
+            $("#two").show();
+  }
+  else{
+        $("#two").hide();
+            $("#one").show();
+        }
+});
+
+});
+</script>
+
+        <h1 style="text-align: center;">job list view</h1>
+        {% if jobs %}
+        {% verbatim %}
+        <div ng-controller = "myController">
+                <div style="width: 90%;margin: auto auto"><b style="padding-left: 30px;">Order By:</b> <select style="padding-left: 0.2%; width: 14%;" ng-model="sort_by">
+                        <option value="title">Alphabetically Asc</option>
+                        <option value="-title">Alphabetically Desc</option>
+                        <option value="deadline">Application deadline Asc</option>
+                        <option value="-deadline"> Application deadline Desc</option>
+                </select>
+                <b class="headings" style="padding-left: 30px;">Search by title:</b><input style="padding-left: 2%; width: 12%;" type="text" name="Search" ng-model="search_by.title">
+                <b class="headings" style="padding-left: 30px;">Search by keywords:</b><input style="padding-left: 2%; width: 12%;" type="text" name="Search" ng-model="search_by.keywords">
+                <b class="headings" style="padding-left: 30px;">Search by location:</b><input style="padding-left: 2%; width: 12%;" type="text" name="Search" ng-model="search_by.location"><br><br>
+                <b style="padding-left: 30px; margin-left: 42%; ">Work from Home:</b><input type="checkbox" id="work_from_home">
+                </div>
+                <br><p></p>
+
+                <table style="width: 80%; margin-left: 6%; padding: 2%;" id="one">
+                        <thead style="text-align: center;">
+                                <th style="width: 15%; text-align: center;">Job title</th>
+                                <th style="width: 23%;text-align: center;">Company </th>
+                                <th style="width: 27%;text-align: center;">Keywords</th>
+                                <th style="width: 15%; text-align: center;">Location</th>
+                                <th style="width: 15%; text-align: center;">Apply by</th>
+                                <th style="width: 5%; text-align: center;">Details</th>
+                        </thead>
+                        <tbody style="text-align: center;">
+                        <tr ng-repeat="j in job_var | filter:search_by |orderBy:sort_by ">
+                                <td>{{j.title}}</td>
+                                <td>{{j.company}}</td>
+                                <td>{{j.keywords}}</td>
+                                <td>{{j.location}}</td>
+                                <td>{{j.deadline}}</td>
+                                <td><a href="{{j.url}}">View</a></td>
+                        </tr>		
+                </tbody>
+        </table>
+        <table style="width: 80%; margin-left: 6%; padding: 2%; display: none;" id="two">
+                <thead style="text-align: center;">
+                        <th style="width: 15%; text-align: center;">Job title</th>
+                        <th style="width: 23%;text-align: center;">Company </th>
+                        <th style="width: 27%;text-align: center;">Keywords</th>
+                        <th style="width: 15%; text-align: center;">Location</th>
+                        <th style="width: 15%; text-align: center;">Apply by</th>
+                        <th style="width: 5%; text-align: center;">Details</th>
+                </thead>
+                <tbody style="text-align: center;">
+                <tr ng-repeat="j in job_var_wfh | filter:search_by |orderBy:sort_by ">
+                        <td>{{j.title}}</td>
+                        <td>{{j.company}}</td>
+                        <td>{{j.keywords}}</td>
+                        <td>{{j.location}}</td>
+                        <td>{{j.deadline}}</td>
+                        <td><a href="{{j.url}}">View</a></td>
+                </tr>		
+        </tbody>
+</table>
+
+        </div>
+        {% endverbatim %}
+        {% else %}
+        <h2>There are no job postings yet!</h2>
+        {% endif %}
+{% endblock %}

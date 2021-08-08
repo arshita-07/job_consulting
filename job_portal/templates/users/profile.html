@@ -1,0 +1,81 @@
+{% extends 'job/base.html' %}
+{% block body_block %}
+<style>
+    body
+    {
+        background-image: url('/static/job/oo.JPG');
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    }
+    td,tr,th
+    {
+        margin:5%;
+        padding: 2%;
+    }
+    #btn{
+        margin-left:25%;
+        width: 50%;
+        background-color:rgba(0,0,0,0.5);
+        border: white solid 1px;
+    }
+    #btn:hover
+    {
+        background-color:rgba(0,0,0,0.7);
+    }
+</style> 
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}" style="width: 50%; margin-left: 25%;" >
+  {{message}}
+</div>
+{% endfor %}
+{% endif %}
+<div style="margin: auto; width: 80%; padding: 2%;">
+    <h1 style="text-align: center;">Profile View</h1>
+    <div style="margin: auto; width: 18%;"><img src="{{user.working_user.image.url}}" alt="" style="width: 100%; height: 170px; border:1px solid white;border-radius: 50%;"></div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div style="margin: auto; width: 40%;">
+    <table style="width: 100%;">
+        <thead>
+            <th style="width: 40%;"></th>
+            <th style="width: 60%;"></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{u_uform.first_name.label}}</td>
+                <td>{{u_uform.first_name}}</td>
+            </tr>
+            <tr>
+                <td>{{u_uform.last_name.label}}</td>
+                <td>{{u_uform.last_name}}</td>
+            </tr>
+            <tr>
+                <td>{{u_uform.username.label}}</td>
+                <td>{{u_uform.username}}</td>
+            </tr>
+            <tr>
+                <td>{{u_uform.email.label}}</td>
+                <td>{{u_uform.email}}</td>
+            </tr>
+            <tr>
+                <td>{{w_uform.mobile.label}}</td>
+                <td>{{w_uform.mobile}}</td>
+            </tr>
+            <tr>
+                <td>{{w_uform.image.label}}</td>
+                <td>{{w_uform.image}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-info" type="submit" id="btn">update</button>
+    </div>
+    </form>
+</div>
+
+
+{% endblock %}

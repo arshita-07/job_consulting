@@ -1,0 +1,83 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{% static 'job/icon.PNG' %}">
+
+        <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{%static 'job/main.css'%}">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% if title %}
+    <title>Implicit Consulting Inc. - {{title}}</title>
+    {% else %}
+    <title>Implicit Consulting Inc.</title>
+    {% endif %}
+  </head>
+  <body ng-app="myModule">
+    <div id="navbar">
+      <a href="{% url 'home' %}" style="margin: 0px;">
+      <video width="70" height="70" autoplay muted style="left: 5px;">
+        <source src="{% static 'job/logo.mp4' %}" type="video/mp4">
+      Your browser does not support the video tag.
+      </video>
+    </a>
+      <a href="{% url 'home' %}" style="padding: 1.5%;">Home</a>
+      {% if user.is_authenticated %}
+      {% if user.is_admin %}
+      <a href="{% url 'recruiter_request' %}" style="padding: 1.5%;">Recruiter Requests</a>
+      <a href="{% url 'newsletterupload' %}" style="padding: 1.5%;">Upload Newsletter</a>
+      <a href="{% url 'newsletter_view' %}" style="padding: 1.5%;">View Newsletter uploads</a>
+      <a href="{% url 'logout' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+      <a href="{% url 'admin_profile' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-user"></span> Profile</a>
+      {% endif %}
+      {% if user.is_recruiter %}
+      <a href="{% url 'create' %}" style="padding: 1.5%;">Create job postings</a>
+      <a href="{% url 'list' %}" style="padding: 1.5%;">View job postings</a>
+      <a href="{% url 'logout' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+      <a href="{% url 'recruiter_profile' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-user"></span> Profile</a>
+      {% endif %}
+      {% if user.is_working %}
+      <a href="{% url 'home' %}#abtus" style="padding: 1.5%;">About us</a>
+      <a href="{% url 'home' %}#contact" style="padding: 1.5%;">Contact</a>
+      <a href="{% url 'list' %}" style="padding: 1.5%;">View job postings</a>
+      <a href="{% url 'myapplications' %}" style="padding: 1.5%;">My Applications</a>
+      <a href="{% url 'logout' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+      <a href="{% url 'working_profile' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-user"></span> Profile</a>
+      {% endif %}
+     
+      {% else %}
+      <a href="{% url 'home' %}#abtus" style="padding: 1.5%;">About us</a>
+      <a href="{% url 'home' %}#contact" style="padding: 1.5%;">Contact</a>
+      <a href="{% url 'signup_main' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a>
+      <a href="{% url 'login_main' %}" style="float: right; padding:1.5%;"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+      {% endif %}
+    </div>
+
+
+    <script>
+    window.onscroll = function() {myFunction()};
+
+    var navbar = document.getElementById("navbar");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+      } else {
+        navbar.classList.remove("sticky");
+      }
+    }
+    </script>
+    
+     {% block body_block %}{% endblock %}
+     
+  </body>
+</html>

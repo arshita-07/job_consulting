@@ -1,0 +1,122 @@
+{% extends "job/base.html" %}
+{% block body_block %}
+<style>
+  .fa {
+  padding: 3%;
+  font-size: 30px;
+  width: 12%;
+  text-align: center;
+  text-decoration: none;
+  margin: 2% 2%;
+  border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    color: white;
+    text-decoration: none;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+</style>
+
+<div id="main_content" style="left: 0%; top: 10%; padding: 0%; width: 100%; position:absolute;">
+  <div class="parallax">
+    <div style="z-index:2;position:absolute;top:0%;height:700px;background-color:rgba(0,0,0,0.5);width:100%;left:0px;">
+      <div style="position:absolute;top:30%; left:34%; display: none;" id="main_id" >
+        <h1 style="text-align:center;color:white;font-size:50px;">Implicit Consulting Inc.</h1>
+        <p style="color: white; text-align: center; font-size: 20px;">Welcome to the future of hiring</p>
+        <div style="position:absolute;left:26.5%;">
+         <a href="{% url 'user_signup' %}" class="btn btn-info">Looking for a job</a>
+         <a href="{% url 'recruiter_signup' %}" class="btn btn-info">Looking to hire</a>
+         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><div id="abtus"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if user.is_authenticated %}
+  {% endif %}
+  <div style="height:500px;background-color:#ccccb3;font-size:36px;padding:2%;" ><br>
+    <h1 style="text-align:center;">
+      <span style="color:#000033;">About </span>
+      <span style="color:#1a75ff;">Us</span>
+      <p style="font-size: 20px; color: black; font-family: 'Times New Roman', Times, serif; text-align: justify; padding-left: 7%; padding-right: 7%; padding-top: 2%;">Implicit Consulting inc is a one stop website to put an end to your search for a job or for skilled personel to fill your vacancies. Implicit consulting inc. is a job portal that enables recruiters to put up job postings and allows job seekers to browse through these postings and apply for them as per their skill set. We strive to make this process smooth, effortless and efficient through this venture. Implicit consulting is a sister concern of Western consulting inc. We are a USA based firm with clients all over the world. 
+      <br><br>
+  At Implicit Consulting Inc. we believe that there is a way to ease out the process of looking for a job and finding people that fit your requirements like a customised mould. We strive to make this process seemlessly effortless for both recruitrs and job seekers by making provisions to filter jobs accoring to various parameters such as location, responsibility of the role, required skillset etc and various other features. <br><br>
+So let's find that dream job or the ideal fit for a vacancy!! Welcome to the future of hiring at Implicit Consulting Inc and it is our pleasure to help you grow and be of service.</p>
+    </h1>
+  </div>
+  <footer id="contact">
+    <div class="row">
+      <div class="col-md-4 mt-3">
+        <h4>Contact Us</h4><br>
+        <table style="width: 95%; text-align: left; margin-left: 4%;">
+          <thead>
+            <th style="width: 30%;"></th>
+            <th style="width: 70%;"></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Email ID:</td>
+              <td>info@implicitconsulting.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4 mt-3">
+        <h4>Stay Tuned</h4>
+        <p><a href="https://www.instagram.com/implicit_consulting_inc/" class="fa fa-instagram"></a>@implicit_consulting_inc</p>
+      </div>
+      <div class="col-md-4 mt-3">
+        <h4>Newsletter</h4>
+        <p>Enter your email id for our periodic news letter and updates</p>
+        <form method="POST" class="form-inline">
+          {% csrf_token %}
+          <table style=" width: 84%; margin-left: 8%;">
+            <thead>
+              <th style="width: 70%;"></th>
+              <th style="width: 30%;"></th>
+            </thead>
+            <tbody>
+              <tr>
+                <td style=" text-align: left;">{{n_form.email.label}}:  {{n_form.email}}</td>
+                <td ><button class="btn btn-info" type="submit" id="btn" style="width: 100%; margin-right: auto; padding: 1.5%;">submit</button></td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </form>
+      </div>
+    </div>
+  </footer>
+  <style>
+    footer {
+    text-align: center;
+    padding: 3px;
+    background-color: #3b3b3b;
+    color:white;
+  }
+  </style>
+  
+</div>
+<script>
+  $(document).ready(function(){
+  $("#main_id").fadeIn(2000);
+  });
+  </script>
+{% endblock body_block %}

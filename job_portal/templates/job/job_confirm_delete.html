@@ -1,0 +1,15 @@
+{% extends 'job/base.html' %}
+{% block body_block %}
+<style>
+    body{
+        background-color: #e0e0eb;
+    }
+</style>
+<form method="POST">
+    {% csrf_token %}
+    <h2>Are you sure you want to delete {{object.title}}</h2>
+{{form}}
+    <button class="btn btn-danger" type="submit">Delete</button>
+    <a href="{% url 'detail' object.id %}" class = "btn btn-warning">Cancel</a>
+</form>
+{%  endblock %}
